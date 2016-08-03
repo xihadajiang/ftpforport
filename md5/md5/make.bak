@@ -1,0 +1,18 @@
+# compile options
+CCCC=cc -b elf -s -o
+CC=cc -I . -O -c -o
+
+# project files
+OBJS=md5.o md5_dgst.o updatemac.o
+
+updatemac: $(OBJS)
+    $(CCCC) updatemac $(OBJS)
+md5_dgst.o: md5_dgst.c
+	$(CC) md5_dgst.o md5_dgst.c
+md5.o: md5.c
+	$(CC) md5.o md5.c
+updatemac.o: updatemac.c
+	$(CC) updatemac.o updatemac.c
+
+EXEC: updatemac
+    @echo "OK"

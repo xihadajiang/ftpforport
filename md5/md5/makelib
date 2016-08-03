@@ -1,0 +1,29 @@
+# directory options
+LIBDIR=.
+INCL=.
+OBJDIR=.
+
+# compile options
+CCCC=cc -s -o
+CC=cc -I $(INCL) -O -c -o
+BIN=../bin
+
+# project files
+OBJS3=$(OBJDIR)/md5.o $(OBJDIR)/md5_dgst.o $(OBJDIR)/sign.o 
+OBJS2=$(OBJDIR)/md5.o $(OBJDIR)/md5_dgst.o
+
+LIBS=-L $(LIBDIR) -lintfc
+EXEC3=$(BIN)/sign
+MD5LIB=$(LIBDIR)/libsign.a
+
+# details
+install ALL:$(MD5LIB)
+
+$(MD5LIB):$(OBJS2)
+	ar rv $(MD5LIB) $(OBJS2)
+
+$(OBJDIR)/md5.o:md5.c
+	cc -O  -c -I $(INCL) $(LIBS) -o $(OBJDIR)/md5.o md5.c
+
+$(OBJDIR)/md5_dgst.o:md5_dgst.c
+	cc -O  -c -I $(INCL) $(LIBS) -o $(OBJDIR)/md5_dgst.o md5_dgst.c
